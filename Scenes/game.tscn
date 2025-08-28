@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2ybhdn7ggpho"]
+
+[ext_resource type="Texture2D" uid="uid://c0n8vdvscl6at" path="res://Assets/Court_floor.png" id="1_ebmjs"]
+[ext_resource type="Texture2D" uid="uid://bpttcmbw32m82" path="res://Assets/Net.png" id="2_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://63yqqkg5tcfx" path="res://Scenes/player.tscn" id="3_wrm1d"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qxrlw"]
+distance = -30.0654
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrm1d"]
+size = Vector2(62, 306)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dryh"]
+size = Vector2(99, 297)
+
+[node name="Game" type="Node2D"]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+collision_layer = 7
+
+[node name="CourtFloor" type="Sprite2D" parent="Floor"]
+position = Vector2(-16, -44)
+scale = Vector2(2.115, 1.53)
+texture = ExtResource("1_ebmjs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(-14, -30)
+scale = Vector2(2.115, 1.53)
+shape = SubResource("WorldBoundaryShape2D_qxrlw")
+
+[node name="Net" type="StaticBody2D" parent="."]
+
+[node name="Net" type="Sprite2D" parent="Net"]
+position = Vector2(-16, -75.75)
+scale = Vector2(2.115, 2.165)
+texture = ExtResource("2_qxrlw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Net"]
+position = Vector2(0, -14.7136)
+scale = Vector2(1, 1.29546)
+polygon = PackedVector2Array(-3, 28, -3, -34, -2, -34, -1, -34, -1, -36, 1, -36, 1, -34, 3, -34, 3, 28, 1, 28, 1, 30, -1, 30, -1, 28)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-16, -86)
+scale = Vector2(-25.68, 7.8)
+zoom = Vector2(2.75, 2.75)
+
+[node name="Player" parent="." instance=ExtResource("3_wrm1d")]
+position = Vector2(-140, -23)
+scale = Vector2(1.5, 1.5)
+collision_layer = 3
+collision_mask = 2
+
+[node name="Walls" type="RigidBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Wall1" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-259, -79)
+shape = SubResource("RectangleShape2D_wrm1d")
+
+[node name="Wall2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(245, -82)
+shape = SubResource("RectangleShape2D_3dryh")
